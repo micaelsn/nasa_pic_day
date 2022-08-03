@@ -8,7 +8,7 @@
 PRODUCT_NAME = nasa_pic_day
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.nasaPicDay
+PRODUCT_BUNDLE_IDENTIFIER = com.nasaPicDay
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.nasaPicDay. All rights reserved.
