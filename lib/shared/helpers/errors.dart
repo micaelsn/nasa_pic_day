@@ -59,3 +59,11 @@ class RepositoryFailure extends Failure {
     this.message,
   });
 }
+
+class InternetConnectionFailure extends Failure {
+  @override
+  final String? message;
+  InternetConnectionFailure({
+    this.message,
+  });
+}

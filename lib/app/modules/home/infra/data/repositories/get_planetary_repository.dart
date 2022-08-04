@@ -20,14 +20,9 @@ class GetPlanetaryRepositoryImpl implements GetPlanetaryRepository {
       var result =
           await datasource.getPlanetary(dateStart: dateStart, dateEnd: dateEnd);
 
-      // _localStorage.add(result);
-
       return Right(result);
     } on Failure catch (error) {
       return Left(error);
     }
-    // on Exception catch(error){
-    //   return Left('Error interno');
-    // }
   }
 }

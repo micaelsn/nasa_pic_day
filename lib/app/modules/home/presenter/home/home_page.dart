@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:nasa_pic_day/app/modules/home/infra/models/planetary_model.dart';
+import 'package:nasa_pic_day/shared/helpers/errors.dart';
 import 'package:nasa_pic_day/shared/helpers/formater.dart';
 import '../../stores/home_store.dart';
 import '../components/planetary_list_item.dart';
@@ -24,14 +25,14 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: new BorderRadius.all(new Radius.circular(25.7))),
+              borderRadius: BorderRadius.all(Radius.circular(25.7))),
           child: TextField(
               controller: store.controllerSearch,
               onChanged: store.searchByString,
@@ -55,42 +56,44 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ),
       ),
       body: SafeArea(
-        child: ScopedBuilder(
+        child: ScopedBuilder<HomeStore, Failure, List<PlanetaryModel>>(
           store: store,
           onLoading: (_) => const Center(
             child: CircularProgressIndicator(
               color: Colors.white,
             ),
           ),
+          onError: (_, error) => buildError(error),
           onState: (_, List<PlanetaryModel> state) {
             return SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   padding: EdgeInsets.all(20),
-                  //   child: Text(
-                  //     'Olá caro usuário, aqui estão suas fotos do dia.',
-                  //     textAlign: TextAlign.start,
-                  //   ),
-                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
                           onPressed: () => store.getDateStart(context),
-                          child: Text(dateFormatter(store.dateStart))),
+                          child: Text(
+                            dateFormatter(store.dateStart),
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
+                          )),
                       const Text('-'),
                       TextButton(
                           onPressed: () => store.getDateEnd(context),
-                          child: Text(dateFormatter(store.dateEnd)))
+                          child: Text(
+                            dateFormatter(store.dateEnd),
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
+                          ))
                     ],
                   ),
                   ListView.builder(
                       shrinkWrap: true,
                       itemCount: state.length,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (_, index) {
                         return state[index].mediaType == "image"
                             ? Padding(
@@ -107,5 +110,31 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ),
       ),
     );
+  }
+
+  Widget buildError(Failure? error) {
+    if (error is InternetConnectionFailure) {
+      return Center(
+        child: SizedBox(
+          width: 300,
+          height: 300,
+          child: Column(
+            children: [
+              const Text(
+                'Olá, infelizmente você está sem conexão com a internet. Por favor verifique sua rede e tente novamente.',
+                textAlign: TextAlign.center,
+              ),
+              IconButton(
+                  onPressed: store.init,
+                  icon: const Icon(
+                    Icons.refresh,
+                    color: Colors.white,
+                  ))
+            ],
+          ),
+        ),
+      );
+    }
+    return SizedBox();
   }
 }
