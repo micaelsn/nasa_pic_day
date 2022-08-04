@@ -9,6 +9,7 @@ import '../domain/usecases/get_planetary_usecase.dart';
 class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
   final GetPlanetaryUseCase getPlanetaryUseCase;
   var controllerSearch = TextEditingController();
+  bool isGetMorePlanetary = false;
   late String dateStart;
   late String dateEnd;
 
@@ -25,6 +26,25 @@ class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
       dateStart,
       dateEnd,
     );
+  }
+
+  getMorePlanetary() async {
+    isGetMorePlanetary = true;
+    var date = DateTime.parse(dateStart);
+    var threeDaysAgo = DateTime(date.year, date.month, date.day - 1);
+
+    var result = await getPlanetaryUseCase(
+        dateStart: dateFormatterDateTime(threeDaysAgo),
+        dateEnd: dateFormatterDateTime(threeDaysAgo));
+
+    result.fold(
+        (l) => setError(l),
+        (r) => {
+              update([...state, ...(r as List<PlanetaryModel>)]),
+              dateStart = dateFormatterDateTime(threeDaysAgo)
+            });
+
+    isGetMorePlanetary = false;
   }
 
   getDateStart(BuildContext context) async {
@@ -69,7 +89,8 @@ class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
     var result =
         await getPlanetaryUseCase(dateStart: dateStart, dateEnd: dateEnd);
 
-    result.fold((l) => setError(l), (r) => update(r as List<PlanetaryModel>));
+    result.fold((l) => setError(l),
+        (r) => update((r as List<PlanetaryModel>).reversed.toList()));
 
     setLoading(false);
   }

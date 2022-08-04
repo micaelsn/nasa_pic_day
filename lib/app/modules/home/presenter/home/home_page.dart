@@ -16,9 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  late ScrollController _controller;
+
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController()..addListener(_scrollListener);
     store.init();
   }
 
@@ -65,45 +68,49 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           ),
           onError: (_, error) => buildError(error),
           onState: (_, List<PlanetaryModel> state) {
-            return SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                          onPressed: () => store.getDateStart(context),
-                          child: Text(
-                            dateFormatter(store.dateStart),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          )),
-                      const Text('-'),
-                      TextButton(
-                          onPressed: () => store.getDateEnd(context),
-                          child: Text(
-                            dateFormatter(store.dateEnd),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ))
-                    ],
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        return state[index].mediaType == "image"
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: PlanetaryListItem(
-                                    planetaryModel: state[index]),
-                              )
-                            : const SizedBox();
-                      })
-                ],
+            return RefreshIndicator(
+              onRefresh: () async => store.init(),
+              child: SingleChildScrollView(
+                controller: _controller,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () => store.getDateStart(context),
+                            child: Text(
+                              dateFormatter(store.dateStart),
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            )),
+                        const Text('-'),
+                        TextButton(
+                            onPressed: () => store.getDateEnd(context),
+                            child: Text(
+                              dateFormatter(store.dateEnd),
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            ))
+                      ],
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return state[index].mediaType == "image"
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: PlanetaryListItem(
+                                      planetaryModel: state[index]),
+                                )
+                              : const SizedBox();
+                        })
+                  ],
+                ),
               ),
             );
           },
@@ -136,5 +143,13 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
       );
     }
     return SizedBox();
+  }
+
+  void _scrollListener() {
+    if (_controller.position.extentAfter < 500) {
+      if (!store.isGetMorePlanetary) {
+        store.getMorePlanetary();
+      }
+    }
   }
 }
