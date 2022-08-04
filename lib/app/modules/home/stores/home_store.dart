@@ -15,14 +15,14 @@ class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
 
   HomeStore(this.getPlanetaryUseCase) : super([]);
 
-  init() {
+  init() async {
     var today = DateTime.now();
     var teenDaysAgo = DateTime(today.year, today.month, today.day - 10);
 
     dateStart = dateFormatterDateTime(teenDaysAgo);
     dateEnd = dateFormatterDateTime(today);
 
-    getPlanetary(
+    await getPlanetary(
       dateStart,
       dateEnd,
     );

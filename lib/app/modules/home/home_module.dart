@@ -23,7 +23,7 @@ class HomeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ChildRoute('/picture-details',
         child: (_, args) => PictureDetailsPage(
               planetaryModel: args.data,

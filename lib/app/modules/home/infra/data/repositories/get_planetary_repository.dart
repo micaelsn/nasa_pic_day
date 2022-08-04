@@ -4,6 +4,7 @@ import 'package:nasa_pic_day/shared/helpers/errors.dart';
 
 import '../../../domain/entities/planetary.dart';
 import '../../../domain/repositories/get_planetary_repository.dart';
+import '../../models/planetary_model.dart';
 import '../datasource/get_planetary_datasource.dart';
 
 class GetPlanetaryRepositoryImpl implements GetPlanetaryRepository {
@@ -19,8 +20,8 @@ class GetPlanetaryRepositoryImpl implements GetPlanetaryRepository {
     try {
       var result =
           await datasource.getPlanetary(dateStart: dateStart, dateEnd: dateEnd);
-
-      return Right(result);
+      var listPanetary = result.map((e) => PlanetaryModel.fromMap(e)).toList();
+      return Right(listPanetary);
     } on Failure catch (error) {
       return Left(error);
     }

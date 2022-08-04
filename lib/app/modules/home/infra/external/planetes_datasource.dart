@@ -1,7 +1,6 @@
 //
 
 import 'package:dio/dio.dart';
-import 'package:dio/native_imp.dart';
 import 'package:nasa_pic_day/app/modules/home/domain/entities/planetary.dart';
 import 'package:nasa_pic_day/app/modules/home/infra/models/planetary_model.dart';
 import 'package:nasa_pic_day/shared/client_dio/client_dio.dart';
@@ -16,9 +15,9 @@ class GetPlanetaryDatasourceImpl implements GetPlanetaryDatasource {
   GetPlanetaryDatasourceImpl(this.client);
 
   @override
-  Future<List<Planetary>> getPlanetary(
+  Future<List<dynamic>> getPlanetary(
       {String? dateStart, String? dateEnd}) async {
-    var listPanetary = <Planetary>[];
+    var listPanetary = <dynamic>[];
     try {
       final response = await client.get("/planetary/apod", queryParameters: {
         "api_key": config.APIKEY,
@@ -28,11 +27,9 @@ class GetPlanetaryDatasourceImpl implements GetPlanetaryDatasource {
       });
 
       if (response.statusCode == 200) {
-        listPanetary = (response.data as List)
-            .map((e) => PlanetaryModel.fromMap(e))
-            .toList();
+        listPanetary = response.data as List<dynamic>;
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       throw DatasourceError(message: "Falha");
     }
     return listPanetary;
