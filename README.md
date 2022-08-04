@@ -1,6 +1,6 @@
 # I - CloudNasa
 
-Project to CloudWalk's selected process for Flutter Developer position: [Mobile Engineer test #2](https://gist.github.com/cloudwalk-tests/68db9331919d02c16b1e05c5daa0364f).
+Project to CloudWalk's selection process for Flutter Developer position: [Mobile Engineer test #2](https://gist.github.com/cloudwalk-tests/68db9331919d02c16b1e05c5daa0364f).
 
 # II Getting Started
 
