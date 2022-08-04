@@ -21,7 +21,7 @@ See more about Clean Architecture [here](https://github.com/Flutterando/Clean-Da
 
 The API used in this project was [NASA APIs](https://api.nasa.gov/)
 
-# V - Recourses
+# V - Resources
 
 - [Modular](https://pub.dev/packages/flutter_modular)
 - [Dartz](https://pub.dev/packages/dartz)
