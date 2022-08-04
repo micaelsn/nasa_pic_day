@@ -1,6 +1,6 @@
 # I - CloudNasa
 
-Project to CloudWalk's selected process for Flutter Developer position: [Mobile Engineer test #2](https://gist.github.com/cloudwalk-tests/68db9331919d02c16b1e05c5daa0364f).
+Project to CloudWalk's selection process for Flutter Developer position: [Mobile Engineer test #2](https://gist.github.com/cloudwalk-tests/68db9331919d02c16b1e05c5daa0364f).
 
 # II Getting Started
 
@@ -13,7 +13,7 @@ A few resources to get you started if this is your first Flutter project:
 
 # III - Architecture 
 
-It was chosen Clean Architecture (Clean Dart) because you're low coupoling and scalability.
+It was chosen Clean Architecture (Clean Dart) because its low coupoling and scalability.
 See more about Clean Architecture [here](https://github.com/Flutterando/Clean-Dart)
 ![CleanDart](https://github.com/Flutterando/Clean-Dart/blob/master/imgs/img3.png?raw=true)
 
