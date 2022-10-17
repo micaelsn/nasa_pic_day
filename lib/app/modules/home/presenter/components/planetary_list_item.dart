@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../../infra/models/planetary_model.dart';
+import 'package:nasa_pic_day/app/modules/home/domain/entities/planetary.dart';
 
 class PlanetaryListItem extends StatelessWidget {
-  final PlanetaryModel planetaryModel;
+  final Planetary planetary;
 
-  const PlanetaryListItem({Key? key, required this.planetaryModel})
+  const PlanetaryListItem({Key? key, required this.planetary})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () =>
-          Modular.to.pushNamed('/picture-details', arguments: planetaryModel),
+          Modular.to.pushNamed('/picture-details', arguments: planetary),
       child: Stack(
         children: [
           Hero(
-            tag: planetaryModel.title,
+            tag: planetary.title,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/gifs/giphy.gif',
-                image: planetaryModel.url,
+                image: planetary.url,
                 fit: BoxFit.fill,
                 placeholderFit: BoxFit.scaleDown,
                 width: MediaQuery.of(context).size.width * .9,
@@ -36,7 +35,7 @@ class PlanetaryListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${planetaryModel.title}\n${planetaryModel.date}',
+                  '${planetary.title}\n${planetary.date}',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 const Icon(

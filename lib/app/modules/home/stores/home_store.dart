@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:nasa_pic_day/app/modules/home/infra/models/planetary_model.dart';
 import 'package:nasa_pic_day/shared/helpers/errors.dart';
 import 'package:nasa_pic_day/shared/helpers/formater.dart';
 
+import '../domain/entities/planetary.dart';
 import '../domain/usecases/get_planetary_usecase.dart';
 
-class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
+class HomeStore extends NotifierStore<Failure, List<Planetary>> {
   final GetPlanetaryUseCase getPlanetaryUseCase;
   var controllerSearch = TextEditingController();
   bool isGetMorePlanetary = false;
@@ -40,7 +40,7 @@ class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
     result.fold(
         (l) => setError(l),
         (r) => {
-              update([...state, ...(r as List<PlanetaryModel>)]),
+              update([...state, ...(r as List<Planetary>)]),
               dateStart = dateFormatterDateTime(threeDaysAgo)
             });
 
@@ -89,8 +89,7 @@ class HomeStore extends NotifierStore<Failure, List<PlanetaryModel>> {
     var result =
         await getPlanetaryUseCase(dateStart: dateStart, dateEnd: dateEnd);
 
-    result.fold((l) => setError(l),
-        (r) => update((r as List<PlanetaryModel>).reversed.toList()));
+    result.fold((l) => setError(l), (r) => update(r.reversed.toList()));
 
     setLoading(false);
   }

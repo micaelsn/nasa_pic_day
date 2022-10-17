@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:nasa_pic_day/app/modules/home/infra/models/planetary_model.dart';
 import 'package:nasa_pic_day/shared/helpers/errors.dart';
 import 'package:nasa_pic_day/shared/helpers/formater.dart';
+import '../../domain/entities/planetary.dart';
 import '../../stores/home_store.dart';
 import '../components/planetary_list_item.dart';
 
@@ -58,7 +58,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ),
       ),
       body: SafeArea(
-        child: ScopedBuilder<HomeStore, Failure, List<PlanetaryModel>>(
+        child: ScopedBuilder<HomeStore, Failure, List<Planetary>>(
           store: store,
           onLoading: (_) => const Center(
             child: CircularProgressIndicator(
@@ -66,7 +66,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             ),
           ),
           onError: (_, error) => buildError(error),
-          onState: (_, List<PlanetaryModel> state) {
+          onState: (_, List<Planetary> state) {
             return RefreshIndicator(
               onRefresh: () async => store.init(),
               child: SingleChildScrollView(
@@ -104,7 +104,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                               ? Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: PlanetaryListItem(
-                                      planetaryModel: state[index]),
+                                      planetary: state[index]),
                                 )
                               : const SizedBox();
                         })

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../infra/models/planetary_model.dart';
+import '../../domain/entities/planetary.dart';
 
 class PictureDetailsPage extends StatelessWidget {
-  final PlanetaryModel planetaryModel;
+  final Planetary planetary;
 
-  const PictureDetailsPage({Key? key, required this.planetaryModel})
+  const PictureDetailsPage({Key? key, required this.planetary})
       : super(key: key);
 
   @override
@@ -20,10 +20,10 @@ class PictureDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: planetaryModel.title,
+              tag: planetary.title,
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/gifs/giphy.gif',
-                image: planetaryModel.url,
+                image: planetary.url,
                 fit: BoxFit.fill,
                 placeholderFit: BoxFit.scaleDown,
                 width: MediaQuery.of(context).size.width,
@@ -32,7 +32,7 @@ class PictureDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '${planetaryModel.title}\n${planetaryModel.date}',
+              '${planetary.title}\n${planetary.date}',
               style: Theme.of(context).textTheme.headline1,
             ),
             const SizedBox(height: 10),
@@ -50,7 +50,7 @@ class PictureDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              planetaryModel.explanation,
+              planetary.explanation,
               style: Theme.of(context).textTheme.bodyText1,
               textAlign: TextAlign.justify,
             ),

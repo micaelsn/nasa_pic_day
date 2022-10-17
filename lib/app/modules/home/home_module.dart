@@ -26,7 +26,7 @@ class HomeModule extends Module {
     ChildRoute(Modular.initialRoute, child: (_, args) => const HomePage()),
     ChildRoute('/picture-details',
         child: (_, args) => PictureDetailsPage(
-              planetaryModel: args.data,
+              planetary: args.data,
             )),
   ];
 }
