@@ -3,9 +3,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:nasa_pic_day/shared/helpers/errors.dart';
 import 'package:nasa_pic_day/shared/helpers/formater.dart';
-import '../../domain/entities/planetary.dart';
-import '../../stores/home_store.dart';
-import '../components/planetary_list_item.dart';
+import '../../../domain/entities/planetary.dart';
+import '../controllers/home_store.dart';
+import '../../components/planetary_list_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         backgroundColor: Theme.of(context).backgroundColor,
         title: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(25.7))),
           child: TextField(

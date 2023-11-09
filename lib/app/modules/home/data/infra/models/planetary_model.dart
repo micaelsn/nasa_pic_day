@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:nasa_pic_day/shared/helpers/formater.dart';
 
-import '../../domain/entities/planetary.dart';
+import '../../../domain/entities/planetary.dart';
 
 class PlanetaryModel extends Planetary {
   PlanetaryModel(
