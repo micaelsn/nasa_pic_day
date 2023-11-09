@@ -60,6 +60,14 @@ class RepositoryFailure extends Failure {
   });
 }
 
+class ServerFailure extends Failure {
+  @override
+  final String? message;
+  ServerFailure({
+    this.message,
+  });
+}
+
 class InternetConnectionFailure extends Failure {
   @override
   final String? message;
