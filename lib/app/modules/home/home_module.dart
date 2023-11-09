@@ -1,13 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'domain/repositories/get_planetary_repository.dart';
 import 'domain/usecases/get_planetary_usecase.dart';
-import 'infra/data/datasource/get_planetary_datasource.dart';
-import 'infra/data/repositories/get_planetary_repository.dart';
-import 'infra/external/planetes_datasource.dart';
-import 'stores/home_store.dart';
+import 'data/infra/data/datasource/get_planetary_datasource.dart';
+import 'data/infra/data/repositories/get_planetary_repository.dart';
+import 'data/external/planetes_datasource.dart';
+import 'presentation/home/controllers/home_store.dart';
 
-import 'presenter/home/home_page.dart';
-import 'presenter/picture_details/picture_details_page.dart';
+import 'presentation/home/pages/home_page.dart';
+import 'presentation/picture_details/picture_details_page.dart';
 
 class HomeModule extends Module {
   @override
