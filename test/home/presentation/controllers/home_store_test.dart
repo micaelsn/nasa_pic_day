@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_pic_day/app/modules/home/domain/usecases/get_planetary_usecase.dart';
-import 'package:nasa_pic_day/app/modules/home/stores/home_store.dart';
+import 'package:nasa_pic_day/app/modules/home/presentation/home/controllers/home_store.dart';
 
 class GetPlanetaryUseCaseMock extends Mock implements GetPlanetaryUseCase {}
 

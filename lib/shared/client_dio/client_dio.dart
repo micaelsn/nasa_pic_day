@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:nasa_pic_day/shared/helpers/errors.dart';
 
@@ -8,8 +7,10 @@ abstract class ClientDio {
   Dio client;
 
   ClientDio(this.client, String baseUrl) {
-    client.options.baseUrl = baseUrl;
-    client.options.connectTimeout = 5000;
+    if (baseUrl.isNotEmpty) {
+      client.options.baseUrl = baseUrl;
+      client.options.connectTimeout = 5000;
+    }
   }
 }
 

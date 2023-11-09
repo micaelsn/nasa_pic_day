@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nasa_pic_day/app/app_module.dart';
 import 'package:nasa_pic_day/app/app_widget.dart';
 import 'package:nasa_pic_day/app/modules/home/home_module.dart';
-import 'package:nasa_pic_day/app/modules/home/presenter/home/home_page.dart';
+import 'package:nasa_pic_day/app/modules/home/presentation/home/pages/home_page.dart';
 
 void main() {
   // initModule(AppModule());
